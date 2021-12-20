@@ -1,0 +1,54 @@
+@startuml
+class FactoryCarga {
+- FactoryCarga: instance: {static}
++ String: ID_TV_32_LCD: {static}
++ String: ID_CAJA_MEDICAMENTOS: {static}
++ String: ID_CONTENEDOR: {static}
+- <<Create>>: FactoryCarga():
++ FactoryCarga: getInstance(): {static}
++ Carga: generarCarga(String):
+}
+abstract class Carga {
+- String: nombre:
++ <<Create>>: Carga(String):
++ String: getNombre():
++ {abstract}double: calcularPeso():
+}
+
+class Barco {
+- List<Carga>: cargas:
++ <<Create>>: Barco():
++ void: agregarCarga(String):
++ void: mostrar():
+}
+class Contenedor {
++ double: PESO_CONTENEDOR: {static}
+- List<Carga>: cargas:
++ <<Create>>: Contenedor(String):
++ void: agregarCarga(Carga):
++ double: calcularPeso():
+}
+class ExceptionCarga {
++ <<Create>>: ExceptionCarga(String):
+}
+class Test {
++ void: main(String[]): {static}
+}
+
+class Simple {
++ double: CRECIMIENTO_DECRECIMIENTO_PESO: {static}
+- double: peso:
+- String: codigo:
++ <<Create>>: Simple(nombre String,codigo String, peso double):
++ double: calcularPeso():
+}
+
+
+Carga <|.. Contenedor
+Carga "*" --* Contenedor
+Exception <|-- ExceptionCarga
+Carga <|.. Simple
+Carga -left-* Barco
+Barco --> FactoryCarga : use
+Test --> Exception : use
+@enduml
